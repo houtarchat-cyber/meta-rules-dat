@@ -327,6 +327,16 @@ jobs:
           overwrite: true
           file: ./publish/*
 
+      - name: Upload to Aliyun OSS
+        uses: tvrcgo/upload-to-oss@master
+        with:
+          key-id: ${{ secrets.OSS_KEY_ID }}
+          key-secret: ${{ secrets.OSS_KEY_SECRET }}
+          region: ${{ secrets.OSS_REGION }}
+          bucket: ${{ secrets.OSS_BUCKET }}
+          assests: |
+            ./publish/**:/geodata/
+
       - name: Git push assets to "release" branch
         run: |
           cd publish || exit 1
@@ -362,7 +372,6 @@ jobs:
             git commit -m "Released on ${{ env.BUILDTIME }}"
             git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
             git push -f -u origin meta
-
 
       - name: Purge jsdelivr CDN
         run: |
