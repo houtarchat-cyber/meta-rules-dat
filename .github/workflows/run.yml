@@ -334,7 +334,7 @@ jobs:
           key-secret: ${{ secrets.OSS_KEY_SECRET }}
           region: ${{ secrets.OSS_REGION }}
           bucket: ${{ secrets.OSS_BUCKET }}
-          assests: |
+          assets: |
             ./publish/**:/geodata/
 
       - name: Git push assets to "release" branch
